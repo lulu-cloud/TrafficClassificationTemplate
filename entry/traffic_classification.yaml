@@ -1,0 +1,31 @@
+preprocess:
+  npy_path: ../npy_data/test
+  traffic_path: ../test_data # 原始pcap流量
+  packet_num: 4
+  byte_num: 256
+  ipLength: 128
+  threshold: 3
+  train_size: 0.8 # 训练集所占比例
+
+train:
+  train_pay: ../npy_data/test/train/pay_load.npy
+  train_seq: ../npy_data/test/train/ip_length.npy
+  train_label: ../npy_data/test/train/label.npy
+  test_pay: ../npy_data/test/test/pay_load.npy
+  test_seq: ../npy_data/test/test/ip_length.npy
+  test_label: ../npy_data/test/test/label.npy
+  BATCH_SIZE: 128
+  input_size: 1 # 送入rnn的维度
+  hidden_size: 512 # rnn的隐藏层维度
+  num_layers: 1 # rnn堆叠的层数
+  Bi: false # 是否采用双向rnn
+  epochs: 150 # 训练的轮数
+  lr: 0.001 # learning rate
+  model_dir: ../checkpoint # 模型保存的文件夹
+  model_name: cnn_lstm.pth # 模型的名称
+
+
+test:
+  evaluate: False # 如果是 True, 则不进行训练, 只进行评测
+  pretrained: False # 是否有训练好的模型
+  label2index: {'支付宝': 0, '知乎': 1}
